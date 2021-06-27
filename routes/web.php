@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\PostsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,4 +21,19 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+/* ---------- Start of Auth middleware ---------- */
+
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+
+    Route::get('/home', 'HomeController@index')->name('home');
+    
+    /* ---------- Start of Posts routes ---------- */
+
+    Route::get('/posts/create', [PostsController::class, 'create']);
+    Route::post('/posts', [PostsController::class, 'store']);
+
+    /* ---------- End of Posts routes ---------- */
+});
+
+/* ---------- End of Auth middleware ---------- */

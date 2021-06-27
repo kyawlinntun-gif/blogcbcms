@@ -73,7 +73,27 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            @auth
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-4">
+                            <ul class="list-group">
+                                <li class="list-group-item">
+                                    <a href="{{ url('/admin/home') }}">Home</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ url('/admin/posts/create') }}">Create new post</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-8">
+                            @yield('content')
+                        </div>
+                    </div>
+                </div>
+            @else
+                @yield('content')
+            @endauth
         </main>
     </div>
 </body>
