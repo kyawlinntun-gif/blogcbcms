@@ -82,6 +82,12 @@
                                     <a href="{{ url('/admin/home') }}">Home</a>
                                 </li>
                                 <li class="list-group-item">
+                                    <a href="{{ url('/admin/categories') }}">Categories</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ url('/admin/categories/create') }}">Create new category</a>
+                                </li>
+                                <li class="list-group-item">
                                     <a href="{{ url('/admin/posts/create') }}">Create new post</a>
                                 </li>
                             </ul>
@@ -96,5 +102,10 @@
             @endauth
         </main>
     </div>
+
+    {{-- ---------- Start of Js ---------- --}}
+    @yield('js')
+    {{-- ---------- End of Js ---------- --}}
+
 </body>
 </html>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/posts', [PostsController::class, 'store']);
 
     /* ---------- End of Posts routes ---------- */
+
+    /* ---------- Start of Categories routes ---------- */
+    
+    Route::get('/categories', [CategoriesController::class, 'index']);
+    Route::get('/categories/create', [CategoriesController::class, 'create']);
+    Route::post('/categories', [CategoriesController::class, 'store']);
+    Route::get('/categories/{category}', [CategoriesController::class, 'edit']);
+    Route::put('/categories/{category}', [CategoriesController::class, 'update']);
+    Route::delete('/categories/{category}', [CategoriesController::class, 'destroy']);
+
+    /* ---------- End of Categories routes ---------- */
 });
 
 /* ---------- End of Auth middleware ---------- */

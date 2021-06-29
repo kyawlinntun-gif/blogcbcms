@@ -2,12 +2,24 @@
 
 @section('content')
 
+    @if($errors->any())
+
+        <ul class="list-group">
+            @foreach($errors->all() as $error)
+                <li class="list-group-item text-danger">
+                    {{ $error }}
+                </li>
+            @endforeach
+        </ul>
+
+    @endif
+
     <div class="card">
         <div class="card-header">
             Create a new post
         </div>
         <div class="card-body">
-            <form action="{{ url('/admin/posts') }}" method="POST">
+            <form action="{{ url('/admin/posts') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label for="title">Title</label>

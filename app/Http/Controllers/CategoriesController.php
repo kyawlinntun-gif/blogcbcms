@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Category;
 use Illuminate\Http\Request;
 
-class PostsController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.categories.index', [
+            'categories' => Category::all()
+        ]);
     }
 
     /**
@@ -24,7 +26,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.categories.create');
     }
 
     /**
@@ -36,12 +38,12 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required',
-            'featured' => 'required|image',
-            'content' => 'required'
+            'name' => 'required'
         ]);
 
-        return $request->all();
+        Category::create(['name' => $request->name]);
+
+        return redirect()->back();
     }
 
     /**
@@ -61,9 +63,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Category $category)
     {
-        //
+        return view('admin.categories.edit', [
+            'category' => $category
+        ]);
     }
 
     /**
@@ -73,9 +77,15 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Category $category)
     {
-        //
+        $request->validate([
+            'name' => 'required'
+        ]);
+
+        $category->update(['name' => $request->name]);
+
+        return redirect()->back();
     }
 
     /**
@@ -84,8 +94,10 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->back();
     }
 }
