@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use App\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -16,7 +17,9 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.posts.index', [
+            'posts' => Post::all()
+        ]);
     }
 
     /**
@@ -26,6 +29,13 @@ class PostsController extends Controller
      */
     public function create()
     {
+        $categories = Category::all();
+
+        if ($categories->count() == 0) {
+            Session::flash('info', 'You must have some categories before attempting to create a post.');
+            return redirect()->back();
+        }
+
         return view('admin.posts.create', [
             'categories' => Category::all()
         ]);
@@ -54,7 +64,8 @@ class PostsController extends Controller
             'title' => $request->title,
             'featured' => 'uploads/posts/'.$featured_new_name,
             'content' => $request->content,
-            'category_id' => $request->category_id
+            'category_id' => $request->category_id,
+            'slug' => Str::slug($request->title)
         ]);
 
         Session::flash('success', 'Post created successfully.');
@@ -102,8 +113,32 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        Session::flash('success', 'The post was just trashed');
+
+        return redirect()->back();
+    }
+
+    public function trash()
+    {
+        $posts = Post::onlyTrashed()->get();
+
+        return view('admin.posts.trash', [
+            'posts' => $posts
+        ]);
+    }
+
+    public function destroyPermanetly($id)
+    {
+        $post = Post::onlyTrashed()->where('id', $id)->first();
+
+        $post->forceDelete();
+
+        Session::flash('success', 'Post deleted permanetly.');
+
+        return redirect()->back();
     }
 }

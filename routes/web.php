@@ -31,8 +31,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     
     /* ---------- Start of Posts routes ---------- */
 
+    Route::get('/posts', [PostsController::class, 'index']);
     Route::get('/posts/create', [PostsController::class, 'create']);
     Route::post('/posts', [PostsController::class, 'store']);
+    Route::delete('/posts/{post}', [PostsController::class, 'destroy']);
+    Route::get('/posts/trash', [PostsController::class, 'trash']);
+    Route::delete('/posts/trash/{post}', [PostsController::class, 'destroyPermanetly']);
 
     /* ---------- End of Posts routes ---------- */
 

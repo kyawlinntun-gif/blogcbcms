@@ -12,7 +12,7 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'title', 'content', 'featured', 'category_id'
+        'title', 'content', 'featured', 'category_id', 'slug'
     ];
 
     /**
@@ -23,5 +23,10 @@ class Post extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    public function getFeaturedAttribute($value)
+    {
+        return asset($value);
     }
 }
