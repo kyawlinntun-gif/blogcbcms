@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\TagsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/posts/{post}', [PostsController::class, 'destroy']);
     Route::get('/posts/trash', [PostsController::class, 'trash']);
     Route::delete('/posts/trash/{post}', [PostsController::class, 'destroyPermanetly']);
+    Route::post('/posts/restore/{post}', [PostsController::class, 'restoredPost']);
+    Route::get('/posts/{post}', [PostsController::class, 'edit']);
+    Route::put('/posts/{post}', [PostsController::class, 'update']);
 
     /* ---------- End of Posts routes ---------- */
 
@@ -50,6 +54,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/categories/{category}', [CategoriesController::class, 'destroy']);
 
     /* ---------- End of Categories routes ---------- */
+
+    /* ---------- Start of Tags routes ---------- */
+    
+    Route::get('/tags', [TagsController::class, 'index']);
+    Route::get('/tags/create', [TagsController::class, 'create']);
+    Route::post('/tags', [TagsController::class, 'store']);
+    Route::get('/tags/{tag}', [TagsController::class, 'edit']);
+    Route::put('/tags/{tag}', [TagsController::class, 'update']);
+    Route::delete('/tags/{tag}', [TagsController::class, 'destroy']);
+
+    /* ---------- End of Tags routes ---------- */
 });
 
 /* ---------- End of Auth middleware ---------- */

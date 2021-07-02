@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Tag;
 use App\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -28,5 +29,10 @@ class Post extends Model
     public function getFeaturedAttribute($value)
     {
         return asset($value);
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

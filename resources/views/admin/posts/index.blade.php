@@ -3,6 +3,9 @@
 @section('content')
 
     <div class="card">
+        <div class="card-header">
+            Published Posts
+        </div>
         <div class="card-body">
             <table class="table">
                 <thead>
@@ -14,22 +17,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($posts as $post)
+                    @if ($posts->count() > 0)
+                        @foreach ($posts as $post)
+                            <tr>
+                                <td><img src="{{ $post->featured }}" alt="{{ $post->title }}" width="90px;" height="50px;"></td>
+                                <td>{{ $post->title }}</td>
+                                <td>
+                                    <a href="{{ url('/admin/posts/' . $post->id) }}" class="btn btn-xs btn-primary">Edit</a>
+                                </td>
+                                <td>
+                                    <button class="btn btn-xs btn-danger" onclick="deleteTrash({{ $post->id }})">Trash</button>
+                                    <form action="{{ url('/admin/posts/'. $post->id) }}" method="POST" id="deleteTrash{{ $post->id }}" style="display: none;">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach    
+                    @else
                         <tr>
-                            <td><img src="{{ $post->featured }}" alt="{{ $post->title }}" width="90px;" height="50px;"></td>
-                            <td>{{ $post->title }}</td>
-                            <td>
-                                <a href="#" class="btn btn-xs btn-primary">Edit</a>
-                            </td>
-                            <td>
-                                <button class="btn btn-xs btn-danger" onclick="deleteTrash({{ $post->id }})">Trash</button>
-                                <form action="{{ url('/admin/posts/'. $post->id) }}" method="POST" id="deleteTrash{{ $post->id }}" style="display: none;">
-                                    @csrf
-                                    @method('delete')
-                                </form>
-                            </td>
+                            <td colspan="4" class="text-center">No published post.</td>
                         </tr>
-                    @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>

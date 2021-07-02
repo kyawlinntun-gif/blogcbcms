@@ -4,28 +4,28 @@
 
     <div class="card">
         <div class="card-header">
-            Categories
+            Tags
         </div>
         <div class="card-body">
             <table class="table">
                 <thead>
                     <tr>
-                        <th>Category Name</th>
+                        <th>Tag Name</th>
                         <th>Editing</th>
                         <th>Deleting</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if($categories->count() > 0)
-                        @foreach ($categories as $category)
+                    @if($tags->count() > 0)
+                        @foreach ($tags as $tag)
                             <tr>
-                                <td>{{ $category->name }}</td>
+                                <td>{{ $tag->tag }}</td>
                                 <td>
-                                    <a href="{{ url('/admin/categories/' . $category->id) }}" class="btn btn-xs btn-primary">Edit</a>
+                                    <a href="{{ url('/admin/tags/' . $tag->id) }}" class="btn btn-xs btn-primary">Edit</a>
                                 </td>
                                 <td>
-                                    <button class="btn btn-xs btn-danger" onclick="deleteCategory({{ $category->id }})">Delete</button>
-                                    <form action="{{ url('/admin/categories/'. $category->id) }}" method="POST" id="deleteCategory{{ $category->id }}" style="display: none;">
+                                    <button class="btn btn-xs btn-danger" onclick="deleteTag({{ $tag->id }})">Delete</button>
+                                    <form action="{{ url('/admin/tags/'. $tag->id) }}" method="POST" id="deleteTag{{ $tag->id }}" style="display: none;">
                                         @csrf
                                         @method('delete')
                                     </form>
@@ -34,7 +34,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="3" class="text-center">No category yet.</td>
+                            <td colspan="3" class="text-center">No tag yet.</td>
                         </tr>
                     @endif
                 </tbody>
@@ -47,10 +47,10 @@
 @section('js')
 
     <script>
-        function deleteCategory(id)
+        function deleteTag(id)
         {
             event.preventDefault();
-            document.getElementById('deleteCategory'+id).submit();
+            document.getElementById('deleteTag'+id).submit();
         }
     </script>
 
