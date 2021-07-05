@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\TagsController;
+use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -65,6 +66,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::delete('/tags/{tag}', [TagsController::class, 'destroy']);
 
     /* ---------- End of Tags routes ---------- */
+
+    /* ---------- Start of Users routes ---------- */
+    
+    Route::get('/users', [UsersController::class, 'index']);
+    Route::get('/users/create', [UsersController::class, 'create']);
+    Route::post('/users', [UsersController::class, 'store']);
+
+    /* ---------- End of Users routes ---------- */
 });
 
 /* ---------- End of Auth middleware ---------- */

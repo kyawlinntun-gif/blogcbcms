@@ -89,6 +89,12 @@
                                     <a href="{{ url('/admin/tags') }}">Tags</a>
                                 </li>
                                 <li class="list-group-item">
+                                    <a href="{{ url('/admin/users') }}">Users</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <a href="{{ url('/admin/users/create') }}">New user</a>
+                                </li>
+                                <li class="list-group-item">
                                     <a href="{{ url('/admin/tags/create') }}">Create tag</a>
                                 </li>
                                 <li class="list-group-item">
