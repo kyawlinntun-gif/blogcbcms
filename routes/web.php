@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostsController;
+use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -72,8 +73,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/users', [UsersController::class, 'index']);
     Route::get('/users/create', [UsersController::class, 'create']);
     Route::post('/users', [UsersController::class, 'store']);
+    Route::get('/users/admin/{user}', [UsersController::class, 'admin']);
+    Route::get('/users/not-admin/{user}', [UsersController::class, 'notAdmin']);
 
     /* ---------- End of Users routes ---------- */
+
+    /* ---------- Start of User Profile route ---------- */
+    Route::get('/users/profile', [ProfilesController::class, 'edit']);
+    /* ---------- End of User Profile route ---------- */
 });
 
 /* ---------- End of Auth middleware ---------- */

@@ -12,7 +12,7 @@
                     <tr>
                         <th>Image</th>
                         <th>Name</th>
-                        <th>Edit</th>
+                        <th>Permissions</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -22,7 +22,13 @@
                             <tr>
                                 <td><img src="{{ asset($user->profile->avatar) }}" alt="{{ $user->name }}" width="60px;" height="60px;" style="border-width: 50%;"></td>
                                 <td>{{ $user->name }}</td>
-                                <td>Edit</td>
+                                <td>
+                                    @if ($user->admin)
+                                        <a href="{{ url('/admin/users/not-admin/' . $user->id) }}" class="btn btn-sm btn-danger">Remove permissions</a>
+                                    @else
+                                        <a href="{{ url('/admin/users/admin/' . $user->id) }}" class="btn btn-sm btn-success">Make admin</a>
+                                    @endif
+                                </td>
                                 <td>Delete</td>
                             </tr>
                         @endforeach  

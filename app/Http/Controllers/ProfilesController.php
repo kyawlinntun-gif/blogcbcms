@@ -2,18 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
-class UsersController extends Controller
+class ProfilesController extends Controller
 {
-
-    public function __construct()
-    {
-        $this->middleware('admin');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -21,9 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('admin.users.index', [
-            'users' => User::all()
-        ]);
+        //
     }
 
     /**
@@ -33,7 +24,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        //
     }
 
     /**
@@ -44,22 +35,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required|min:2',
-            'email' => 'required|email'
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt('password')
-        ]);
-
-        $user->profile()->create(['avatar' => 'uploads/profile/1.png']);
-
-        Session::flash('success', 'User added successfully.');
-
-        return redirect(url('/admin/users'));
+        //
     }
 
     /**
@@ -79,9 +55,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit()
     {
-        //
+        return view('admin.users.profiles.index', [
+            'user' => Auth::user()
+        ]);
     }
 
     /**
@@ -105,23 +83,5 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function admin(User $user)
-    {
-        $user->update(['admin' => 1]);
-
-        Session::flash('success', 'Successfully changed user permissions.');
-
-        return redirect()->back();
-    }
-
-    public function notAdmin(User $user)
-    {
-        $user->update(['admin' => 0]);
-
-        Session::flash('success', 'Successfully changed user permissions.');
-
-        return redirect()->back();
     }
 }

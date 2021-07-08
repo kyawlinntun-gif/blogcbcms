@@ -88,11 +88,16 @@
                                 <li class="list-group-item">
                                     <a href="{{ url('/admin/tags') }}">Tags</a>
                                 </li>
+                                @if (auth()->user()->admin)
+                                    <li class="list-group-item">
+                                        <a href="{{ url('/admin/users') }}">Users</a>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <a href="{{ url('/admin/users/create') }}">New user</a>
+                                    </li>
+                                @endif
                                 <li class="list-group-item">
-                                    <a href="{{ url('/admin/users') }}">Users</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <a href="{{ url('/admin/users/create') }}">New user</a>
+                                    <a href="{{ url('/admin/users/profile') }}">My profile</a>
                                 </li>
                                 <li class="list-group-item">
                                     <a href="{{ url('/admin/tags/create') }}">Create tag</a>
