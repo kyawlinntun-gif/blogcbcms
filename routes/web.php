@@ -75,11 +75,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::post('/users', [UsersController::class, 'store']);
     Route::get('/users/admin/{user}', [UsersController::class, 'admin']);
     Route::get('/users/not-admin/{user}', [UsersController::class, 'notAdmin']);
+    Route::delete('/users/{user}', [UsersController::class, 'destroy']);
 
     /* ---------- End of Users routes ---------- */
 
     /* ---------- Start of User Profile route ---------- */
     Route::get('/users/profile', [ProfilesController::class, 'edit']);
+    Route::put('/users/profile', [ProfilesController::class, 'update']);
     /* ---------- End of User Profile route ---------- */
 });
 

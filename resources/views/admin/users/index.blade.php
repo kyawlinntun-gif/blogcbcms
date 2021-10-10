@@ -29,7 +29,15 @@
                                         <a href="{{ url('/admin/users/admin/' . $user->id) }}" class="btn btn-sm btn-success">Make admin</a>
                                     @endif
                                 </td>
-                                <td>Delete</td>
+                                <td>
+                                    @if (Auth::id() !== $user->id)
+                                        <button class="btn btn-sm btn-danger" onclick="deleteUser({{ $user->id }})">Delete</button>                                        
+                                    @endif
+                                    <form action="{{ url('/admin/users/' . $user->id) }}" method="POST" id="deleteUser{{ $user->id }}" style="display: none;">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach  
                     @else
@@ -47,10 +55,10 @@
 @section('js')
 
     <script>
-        function deleteTrash(id)
+        function deleteUser(id)
         {
             event.preventDefault();
-            document.getElementById('deleteTrash'+id).submit();
+            document.getElementById('deleteUser'+id).submit();
         }
     </script>
 

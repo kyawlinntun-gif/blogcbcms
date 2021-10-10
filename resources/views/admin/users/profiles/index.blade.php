@@ -19,7 +19,7 @@
             Edit your profile
         </div>
         <div class="card-body">
-            <form action="{{ url('/admin/users/profile') }}" method="POST">
+            <form action="{{ url('/admin/users/profile') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('put')
                 <div class="form-group">
@@ -28,15 +28,15 @@
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" class="form-control" value="{{ $user->name }}">
+                    <input type="email" id="email" name="email" class="form-control" value="{{ $user->email }}">
                 </div>
                 <div class="form-group">
                     <label for="password">New Pasword</label>
-                    <input type="password" id="password" name="password" class="form-control" value="{{ $user->password }}">
+                    <input type="password" id="password" name="password" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="avatar">Upload new avatar</label>
-                    <input type="file" id="avatar" name="avatar" class="form-control" value="{{ $user->profile->avatar }}">
+                    <input type="file" id="avatar" name="avatar" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="facebook">Facebook profile</label>

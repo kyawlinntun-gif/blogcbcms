@@ -103,6 +103,10 @@ class CategoriesController extends Controller
     {
         $category->delete();
 
+        foreach ($category->posts as $post) {
+            $post->forceDelete();
+        }
+
         Session::flash('success', 'You successfully deleted the category.');
 
         return redirect()->back();
