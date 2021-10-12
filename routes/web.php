@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoriesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfilesController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -83,6 +84,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/users/profile', [ProfilesController::class, 'edit']);
     Route::put('/users/profile', [ProfilesController::class, 'update']);
     /* ---------- End of User Profile route ---------- */
+
+    /* ---------- Start of Admin middleware ---------- */
+    Route::group(['middleware' => 'admin'], function () {
+        /* ---------- Start of Settings routes ---------- */
+        Route::get('/settings', [SettingController::class, 'index']);
+        Route::put('/settings/{setting}', [SettingController::class, 'update']);
+        /* ---------- End of Settings routes ---------- */
+    });
+    /* ---------- End of Admin middleware ---------- */
 });
 
 /* ---------- End of Auth middleware ---------- */

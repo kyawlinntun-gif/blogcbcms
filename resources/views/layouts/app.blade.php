@@ -115,6 +115,11 @@
                                 <li class="list-group-item">
                                     <a href="{{ url('/admin/posts/create') }}">Create new post</a>
                                 </li>
+                                @if (auth()->user()->admin)
+                                    <li class="list-group-item">
+                                        <a href="{{ url('/admin/settings') }}">Settings</a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                         <div class="col-lg-8">
